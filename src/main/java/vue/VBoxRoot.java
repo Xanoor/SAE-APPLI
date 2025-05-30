@@ -2,11 +2,7 @@ package vue;
 
 import controleur.Controleur;
 import javafx.scene.layout.VBox;
-import modele.LectureScenarios;
 import modele.Scenario;
-
-import java.io.File;
-import java.io.IOException;
 
 public class VBoxRoot extends VBox {
     private static Controleur controleur;
@@ -30,6 +26,9 @@ public class VBoxRoot extends VBox {
     }
     public static HBoxContainer getHBoxContainer() {
         return hBoxContainer;
+    }
+    public static MenuScenarios getMenuBarScenarios() {
+        return menuBarScenarios;
     }
 
     public static Scenario getScenario() {

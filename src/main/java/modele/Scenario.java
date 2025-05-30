@@ -1,9 +1,8 @@
 package modele;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 public class Scenario {
     private static String nomScenario;
@@ -11,7 +10,7 @@ public class Scenario {
     private static List<String> vendeurs = new ArrayList<>();
     private static List<String> acheteurs = new ArrayList<>();
 
-    public static void clear(){
+    public void clear(){
         transactions.clear();
         vendeurs.clear();
         acheteurs.clear();

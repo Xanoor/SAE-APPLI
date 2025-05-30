@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class ConstValues {
-    private static final List<String> CONST_SCENARIOS = importScenarios();
+    private static List<String> CONST_SCENARIOS = importScenarios();
 
     private static List<String> importScenarios() {
         List<String> scenarios = new ArrayList<>();
@@ -14,6 +14,11 @@ public final class ConstValues {
             scenarios.add(file.getName());
         }
         return scenarios;
+    }
+
+    public static List<String> updateScenarios() {
+        CONST_SCENARIOS = importScenarios();
+        return CONST_SCENARIOS;
     }
 
     public static List<String> getScenarios() {

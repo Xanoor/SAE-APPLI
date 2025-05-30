@@ -5,7 +5,6 @@ import vue.VBoxRoot;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class EcritureScenario {
 
@@ -19,6 +18,19 @@ public class EcritureScenario {
                 System.out.println(transaction);
             }
             writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
+    public static void creerScenario (String fichier) throws IOException {
+        try {
+            FileWriter writer = new FileWriter("data/scenarios/"+fichier);
+            writer.close();
+
+            File nouveau_fichier= new File("data/scenarios/"+fichier);
+            LectureScenarios.lectureScenarios(nouveau_fichier);
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();

@@ -5,19 +5,13 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.TableView;
-import modele.EcritureScenario;
-import modele.LectureScenarios;
-import modele.Scenario;
-import modele.Transaction;
-import vue.HBoxContainer;
-import vue.ScenarioEditor;
-import vue.TableViewTransactions;
-import vue.VBoxRoot;
+import modele.*;
+import vue.*;
 
 import java.io.File;
 import java.io.IOException;
 
-import static java.lang.Integer.parseInt;
+import static modele.ConstValues.getScenarios;
 
 public class Controleur implements EventHandler {
 
@@ -28,12 +22,24 @@ public class Controleur implements EventHandler {
 
         //la source de event est le bouton "Enregistrer" du formulaire de réservation
         if (event.getSource() instanceof RadioMenuItem) {
-            System.out.println(((RadioMenuItem) event.getSource()).getUserData());
-            File fichier = new File("data/scenarios/"+((RadioMenuItem) event.getSource()).getUserData());
-            try {
-                scenario = LectureScenarios.lectureScenarios(fichier);
-            } catch (IOException e) {
-                System.out.println(e);
+            String RadioMenuItemName = ((RadioMenuItem) event.getSource()).getUserData().toString();
+            if (RadioMenuItemName.equals("creer_scenario")) {
+                MenuScenarios menu = VBoxRoot.getMenuBarScenarios();
+                String fileName = "scenario_"+getScenarios().size();
+                try {
+                    EcritureScenario.creerScenario(fileName+".txt");
+                    ConstValues.updateScenarios();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                menu.createMenu(fileName);
+            } else {
+                File fichier = new File("data/scenarios/"+RadioMenuItemName);
+                try {
+                    scenario = LectureScenarios.lectureScenarios(fichier);
+                } catch (IOException e) {
+                    System.out.println(e);
+                }
             }
 
             hBoxContainer.getTableViewTransactions().update(scenario.getTransactions());
@@ -49,6 +55,11 @@ public class Controleur implements EventHandler {
             TableViewTransactions tableViewTransactions = hBoxContainer.getTableViewTransactions();
             if (((Button) event.getSource()).getUserData() == "enregistrer") {
                 System.out.println(scenario.toString());
+                try {
+                    new ScenarioVillesTopologique();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             } else if (((Button) event.getSource()).getUserData() == "modifier") {
                 scenarioEditor.getCurrentTransaction().setAcheteur(scenarioEditor.getNomAcheteur());
                 scenarioEditor.getCurrentTransaction().setVendeur(scenarioEditor.getNomVendeur());

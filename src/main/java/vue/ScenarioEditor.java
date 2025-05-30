@@ -3,14 +3,17 @@ package vue;
 import controleur.Controleur;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import modele.ConversionVilles;
 import modele.Transaction;
 
+import java.io.IOException;
+
 public class ScenarioEditor extends GridPane {
-    private TextField nomVendeur;
-    private TextField nomAcheteur;
+    private ComboBox<String> nomVendeur;
+    private ComboBox<String> nomAcheteur;
     private Label labelTransaction;
     private Transaction currentTransaction;
 
@@ -27,8 +30,16 @@ public class ScenarioEditor extends GridPane {
         this.add(new Label("Vendeur"), 0, 1);
         this.add(new Label("Acheteur"), 1, 1);
 
-        nomVendeur = new TextField("Vendeur");
-        nomAcheteur = new TextField("Acheteur");
+        nomVendeur = new ComboBox<>();
+        nomAcheteur = new ComboBox<>();
+        try {
+            for (String item : ConversionVilles.convertirVilles().keySet()) {
+                nomVendeur.getItems().add(item);
+                nomAcheteur.getItems().add(item);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         this.add(nomVendeur, 0, 2);
         this.add(nomAcheteur, 1, 2);
 
@@ -64,8 +75,12 @@ public class ScenarioEditor extends GridPane {
     }
 
     public void update(Transaction transaction) {
-        nomVendeur.setText(transaction.getVendeur());
-        nomAcheteur.setText(transaction.getAcheteur());
+        if (nomVendeur.getItems().contains(transaction.getVendeur())) {
+            nomVendeur.setValue(transaction.getVendeur());
+        }
+        if (nomAcheteur.getItems().contains(transaction.getAcheteur())) {
+            nomAcheteur.setValue(transaction.getAcheteur());
+        }
         currentTransaction = transaction;
         labelTransaction.setText("Transaction sélectionnée: " + transaction);
     }
@@ -75,10 +90,10 @@ public class ScenarioEditor extends GridPane {
     }
 
     public String getNomVendeur() {
-        return nomVendeur.getText();
+        return nomVendeur.getValue();
     }
 
     public String getNomAcheteur() {
-        return nomAcheteur.getText();
+        return nomAcheteur.getValue();
     }
 }

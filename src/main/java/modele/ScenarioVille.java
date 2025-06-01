@@ -4,7 +4,7 @@ import vue.VBoxRoot;
 
 import java.util.*;
 
-import static modele.ConversionVilles.getDistance;
+import static modele.DonneesScenarios.getDistance;
 
 public class ScenarioVille {
     public ScenarioVille() {
@@ -41,7 +41,7 @@ public class ScenarioVille {
 
         // Création et affichage du graphe
         GrapheOriente graphe = new GrapheOriente(adjMap);
-        List<String> ordre = graphe.trieTopologiqueSimple();
+        List<String> ordre = graphe.triTopologiqueSimple();
         System.out.println("Ordre topologique : " + ordre);
 
         ordre.addFirst("Velizy +");

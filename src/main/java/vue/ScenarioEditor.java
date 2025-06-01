@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import modele.ConversionVilles;
+import modele.DonneesScenarios;
 import modele.Transaction;
 
 import java.io.IOException;
@@ -36,7 +36,7 @@ public class ScenarioEditor extends GridPane {
         nomAcheteur = new ComboBox<>();
 
         try {
-            for (String item : ConversionVilles.convertirVilles().keySet()) {
+            for (String item : DonneesScenarios.convertirVilles().keySet()) {
                 nomVendeur.getItems().add(item);
                 nomAcheteur.getItems().add(item);
             }

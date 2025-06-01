@@ -4,17 +4,29 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-public class ConversionVilles {
+public class DonneesScenarios {
     public static Map<String, String> tableConversion = new HashMap<>();
     public static List<List<Integer>> tableDistances = new ArrayList<>();
     private static List<String> villes = new ArrayList<>();
+    private static List<String> CONST_SCENARIOS = importScenarios();
 
     /**
-     * Met à jour l'affichage des comboBox et des labels ainsi que le champ currentTransaction.
+     * Méthode permettant de récupérer la liste des scénarios.
      *
-     * @param transaction La transaction séléctionnée.
-     * @return Le nombre de voisins sortants de ce sommet.
-     *         Retourne 0 si le sommet n'existe pas dans le graphe.
+     * @return Liste contenant le noms des scénarios.
+     */
+    private static List<String> importScenarios() {
+        List<String> scenarios = new ArrayList<>();
+
+        for (File file : new File("data/scenarios").listFiles()) {
+            scenarios.add(file.getName());
+        }
+        return scenarios;
+    }
+
+    /**
+     * Permet de convertir les distances dans le fichier distances.txt en matrice.
+     * Ajoute également toutes les villes du fichier dans la liste "villes".
      */
     public static void convertirDistances() throws IOException {
         Scanner scanner = new Scanner(new File("data/distances.txt"));
@@ -26,27 +38,26 @@ public class ConversionVilles {
             }
             tableDistances.add(distances);
         }
-        System.out.println(tableDistances);
-        System.out.println(getDistance("Grenoble", "Paris"));
-        System.out.println(convertVillesToInt());
     }
 
+    /**
+     * Méthode permettant de récupérer la distance entre deux villes.
+     * @param ville Ville numéro 1
+     * @param ville2 Ville numéro 2
+     * @return Retourne la distance entre les deux villes ou 0 si une des deux villes est inconnue (ou que la matrice des distances est vide).
+     */
     public static Integer getDistance(String ville, String ville2) {
-        if (villes.contains(ville) && villes.contains(ville2)) {
+        if (villes.contains(ville) && villes.contains(ville2) && !tableDistances.isEmpty()) {
             return tableDistances.get(villes.indexOf(ville)).get(villes.indexOf(ville2));
         }
         return 0;
     }
 
-    public static Map<String, Integer> convertVillesToInt() {
-        Map<String, Integer> villeToInt = new HashMap<>();
-        for (int i = 0; i < villes.size(); i++) {
-            villeToInt.put(villes.get(i), i);
-        }
-
-        return villeToInt;
-    }
-
+    /**
+     * Créer une hashMap avec le nom de chaque pokémon correspondant a une ville.
+     * @return Retourne une Map de conversion (pokémon = ville)
+     * @throws IOException Lève une erreur si un problème survient lors de la lecture du fichier.
+     */
     public static Map<String, String> convertirVilles () throws IOException {
         tableConversion.clear();
         Map<String, String> conversionVilles = new HashMap<>();
@@ -69,8 +80,25 @@ public class ConversionVilles {
         return conversionVilles;
     }
 
+    /**
+     * Permet de récupérer la ville où réside un pokémon.
+     * @param pokemon Le nom du pokémon.
+     * @return Retourne la ville du pokémon où son nom si aucune ville est trouvée.
+     */
     public static String convertirPokemon (String pokemon) {
         if (tableConversion.containsKey(pokemon)) return tableConversion.get(pokemon);
         else return pokemon;
+    }
+
+    /**
+     * Permet de mettre à jour la liste de des noms des scénarios (lors de la créations de nouveaux
+     * scénarios par exemple).
+     */
+    public static void updateScenarios() {
+        CONST_SCENARIOS = importScenarios();
+    }
+
+    public static List<String> getScenarios() {
+        return CONST_SCENARIOS;
     }
 }

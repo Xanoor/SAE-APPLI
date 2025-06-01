@@ -43,13 +43,13 @@ public class GrapheVilles {
     // Plus court chemin (Dijkstra) entre deux villes
     public List<String> plusCourtChemin(String depart, String arrivee) {
         try {
-            if (ConversionVilles.tableConversion.isEmpty()) ConversionVilles.convertirVilles();
+            if (DonneesScenarios.tableConversion.isEmpty()) DonneesScenarios.convertirVilles();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        depart = ConversionVilles.convertirPokemon(depart) ;
-        arrivee = ConversionVilles.convertirPokemon(arrivee);
+        depart = DonneesScenarios.convertirPokemon(depart) ;
+        arrivee = DonneesScenarios.convertirPokemon(arrivee);
 
         Map<String, Integer> dist = new HashMap<>();
         Map<String, String> prev = new HashMap<>();

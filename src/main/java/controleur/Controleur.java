@@ -11,7 +11,7 @@ import vue.*;
 import java.io.File;
 import java.io.IOException;
 
-import static modele.ConstValues.getScenarios;
+import static modele.DonneesScenarios.getScenarios;
 
 public class Controleur implements EventHandler {
 
@@ -25,15 +25,22 @@ public class Controleur implements EventHandler {
         if (event.getSource() instanceof RadioMenuItem) {
             String buttonId = ((RadioMenuItem) event.getSource()).getId();
             if (buttonId != null && buttonId.equals("algorithme")) {
-                if (((RadioMenuItem) event.getSource()).getUserData() == "Topologique") {
+                String algorithme = (String)((RadioMenuItem) event.getSource()).getUserData();
+                if (algorithme == "Topologique") {
                     try {
                         new ScenarioVille();
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
-
-                    vBoxAlgorithm.update(scenario.getPath(), scenario.getDistance());
+                } else if (algorithme == "Glouton") {
+                    try {
+                        new ScenarioGlouton();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
                 }
+                vBoxAlgorithm.update(scenario.getPath(), scenario.getDistance());
+
             } else {
                 String RadioMenuItemName = ((RadioMenuItem) event.getSource()).getUserData().toString();
                 if (RadioMenuItemName.equals("creer_scenario")) {
@@ -41,7 +48,7 @@ public class Controleur implements EventHandler {
                     String fileName = "scenario_"+getScenarios().size();
                     try {
                         EcritureScenario.creerScenario(fileName+".txt");
-                        ConstValues.updateScenarios();
+                        DonneesScenarios.updateScenarios();
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -56,6 +63,7 @@ public class Controleur implements EventHandler {
                 }
 
                 hBoxContainer.getTableViewTransactions().update(scenario.getTransactions());
+                vBoxAlgorithm.clear();
             }
         }
         System.out.println(event.getSource());

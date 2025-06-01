@@ -17,6 +17,7 @@ public class TableViewTransactions extends VBox {
 
     public TableViewTransactions(Controleur controleur) {
         super();
+        this.setPrefWidth(330);
         this.setPadding(new Insets(15));
         this.setSpacing(10);
         this.setAlignment(Pos.TOP_CENTER);

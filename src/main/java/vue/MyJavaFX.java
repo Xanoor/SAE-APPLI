@@ -26,7 +26,7 @@ public class MyJavaFX extends Application {
         }
 
         stage.setScene(scene);
-        stage.setTitle("Calendrier du mois");
+        stage.setTitle("SAE APPLI - Théo Peyronnet / Mohamed Boulakhras");
         stage.show();
     }
 

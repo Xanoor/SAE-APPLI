@@ -22,7 +22,7 @@ public class Transaction {
      * @return Le nom de la ville où réside le pokémon acheteur.
      */
     public String getVilleAcheteur() {
-        return ConversionVilles.convertirPokemon(acheteur);
+        return DonneesScenarios.convertirPokemon(acheteur);
     }
 
     /**
@@ -30,7 +30,7 @@ public class Transaction {
      * @return Le nom de la ville où réside le pokémon vendeur.
      */
     public String getVilleVendeur() {
-        return ConversionVilles.convertirPokemon(vendeur);
+        return DonneesScenarios.convertirPokemon(vendeur);
     }
 
     public void setVendeur(String vendeur) {

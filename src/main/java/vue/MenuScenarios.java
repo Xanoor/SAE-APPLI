@@ -3,7 +3,7 @@ package vue;
 import controleur.Controleur;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
-import modele.ConstValues;
+import modele.DonneesScenarios;
 
 public class MenuScenarios extends MenuBar {
     private Menu menuScenario;
@@ -12,11 +12,12 @@ public class MenuScenarios extends MenuBar {
 
     public MenuScenarios(Controleur controleur) {
         this.controleur = controleur;
+        this.setPrefWidth(330);
         menuScenario = new Menu("Scénarios");
         menuAlgorithme = new Menu("Algorithme");
 
         ToggleGroup groupAlgorithmes = new ToggleGroup();
-        for (String item : new String[]{"Topologique", "gf"}) {
+        for (String item : new String[]{"Topologique", "Glouton"}) {
             RadioMenuItem menuItem = new RadioMenuItem(item);
             menuItem.setToggleGroup(groupAlgorithmes);
             menuItem.setUserData(item);
@@ -39,7 +40,7 @@ public class MenuScenarios extends MenuBar {
         ToggleGroup groupScenarios = new ToggleGroup();
         Boolean isFirst = true;
 
-        for (String item : ConstValues.getScenarios()) {
+        for (String item : DonneesScenarios.getScenarios()) {
             RadioMenuItem menuItem = new RadioMenuItem(item);
             menuItem.setToggleGroup(groupScenarios);
             menuItem.setUserData(item);

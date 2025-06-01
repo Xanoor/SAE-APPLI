@@ -35,14 +35,27 @@ public class GrapheOriente {
         return sb.toString();
     }
 
+    /**
+     * Permet de récupérer la liste des sommets.
+     * @return l'ensemble des sommets.
+     */
     public List<String> listeSommets() {
         return new ArrayList<String>(voisinsSortant.keySet());
     }
 
+    /**
+     * Permet de récupérer l'ordre d'un graphe.
+     * @return renvoie l'ordre du graphe (int).
+     */
     public int ordre() {
         return voisinsSortant.size();
     }
 
+    /**
+     * Permet de récupérer les degrés d'un sommet.
+     * @param sommet Somme dont on veut récupérer l'ordre.
+     * @return Renvoie l'ordre du sommet (int)
+     */
     public int degre(String sommet) {
         if (voisinsSortant.containsKey(sommet)) {
             return voisinsSortant.get(sommet).size();
@@ -50,6 +63,10 @@ public class GrapheOriente {
         return 0;
     }
 
+    /**
+     * Permet de récupérer la taille d'un graphe.
+     * @return Renvoie la taille du graphe.
+     */
     public int taille() {
         int taille = 0;
         for (String ville : voisinsSortant.keySet()) {
@@ -58,6 +75,10 @@ public class GrapheOriente {
         return taille;
     }
 
+    /**
+     * Permet de récupérer le degré minimum du graphe (sommet avec le plus petit degré).
+     * @return Renvoie le degré minimal.
+     */
     public int degreMinimal() {
         int min = Integer.MAX_VALUE;
         for (String ville : voisinsSortant.keySet()) {
@@ -69,6 +90,10 @@ public class GrapheOriente {
         return min == Integer.MAX_VALUE ? 0 : min;
     }
 
+    /**
+     * Permet de récupérer le degré maximal du graphe (sommet avec le plus grand degré)
+     * @return Renvoie le degré maximal.
+     */
     public int degreMaximal() {
         int max = 0;
         for (String ville : voisinsSortant.keySet()) {
@@ -80,7 +105,13 @@ public class GrapheOriente {
         return max;
     }
 
-    public List<String> trieTopologiqueSimple() {
+    /**
+     * Fonction de tri topologique (étudié en cours).
+     * Permet d’ordonner les sommets du graphe en sélectionnant à chaque étape un sommet de degré entrant nul.
+     * @return Renvoie l’ordre topologique sous forme de liste.
+     */
+
+    public List<String> triTopologiqueSimple() {
         List<String> ordre = new ArrayList<String>();
         Map<String, Integer> degreEntrant = getDegreEntrant();
         Queue<String> file = new LinkedList<String>();

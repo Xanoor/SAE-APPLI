@@ -2,6 +2,8 @@ package vue;
 
 import controleur.Controleur;
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -17,21 +19,22 @@ public class ScenarioEditor extends GridPane {
     private Label labelTransaction;
     private Transaction currentTransaction;
 
-
     public ScenarioEditor(Controleur controleur) {
         super();
-//        this.setGridLinesVisible(true);
         this.setHgap(10);
         this.setVgap(10);
+        this.setPadding(new Insets(20));
+        this.setAlignment(Pos.TOP_CENTER); // Centre tout le contenu
 
         labelTransaction = new Label("Transaction sélectionnée: aucune");
-        this.add(labelTransaction, 0, 0, 2, 1);
+        this.add(labelTransaction, 0, 0, 3, 1);
 
         this.add(new Label("Vendeur"), 0, 1);
         this.add(new Label("Acheteur"), 1, 1);
 
         nomVendeur = new ComboBox<>();
         nomAcheteur = new ComboBox<>();
+
         try {
             for (String item : ConversionVilles.convertirVilles().keySet()) {
                 nomVendeur.getItems().add(item);
@@ -40,40 +43,41 @@ public class ScenarioEditor extends GridPane {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
         this.add(nomVendeur, 0, 2);
         this.add(nomAcheteur, 1, 2);
-
-        Button b = new Button("_Test");
-        b.setMnemonicParsing(true);
-        b.setUserData("enregistrer");
-        b.addEventHandler(ActionEvent.ACTION, controleur);
-        this.add(b, 0, 5);
 
         Button addButton = new Button("_Ajouter");
         addButton.setMnemonicParsing(true);
         addButton.setUserData("ajouter");
         addButton.addEventHandler(ActionEvent.ACTION, controleur);
-        this.add(addButton, 0, 4);
 
         Button updateButton = new Button("_Modifier");
         updateButton.setMnemonicParsing(true);
         updateButton.setUserData("modifier");
         updateButton.addEventHandler(ActionEvent.ACTION, controleur);
-        this.add(updateButton, 1, 4);
 
         Button removeButton = new Button("_Supprimer");
         removeButton.setMnemonicParsing(true);
         removeButton.setUserData("supprimer");
         removeButton.addEventHandler(ActionEvent.ACTION, controleur);
-        this.add(removeButton, 2, 0);
 
         Button saveButton = new Button("S_auvegarder");
         saveButton.setMnemonicParsing(true);
         saveButton.setUserData("sauvegarder");
         saveButton.addEventHandler(ActionEvent.ACTION, controleur);
-        this.add(saveButton, 0, 6);
+
+        this.add(removeButton, 2, 2);
+        this.add(addButton, 0, 3);
+        this.add(updateButton, 1, 3);
+        this.add(saveButton, 2, 3);
     }
 
+    /**
+     * Met à jour l'affichage des comboBox et des labels ainsi que le champ currentTransaction.
+     *
+     * @param transaction La transaction séléctionnée.
+     */
     public void update(Transaction transaction) {
         if (nomVendeur.getItems().contains(transaction.getVendeur())) {
             nomVendeur.setValue(transaction.getVendeur());

@@ -17,6 +17,22 @@ public class Transaction {
         return acheteur;
     }
 
+    /**
+     * Permet de convertir le nom du pokémon acheteur en le nom de sa ville.
+     * @return Le nom de la ville où réside le pokémon acheteur.
+     */
+    public String getVilleAcheteur() {
+        return ConversionVilles.convertirPokemon(acheteur);
+    }
+
+    /**
+     * Permet de convertir le nom du pokémon vendeur en le nom de sa ville.
+     * @return Le nom de la ville où réside le pokémon vendeur.
+     */
+    public String getVilleVendeur() {
+        return ConversionVilles.convertirPokemon(vendeur);
+    }
+
     public void setVendeur(String vendeur) {
         this.vendeur = vendeur;
     }

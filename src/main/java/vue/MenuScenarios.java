@@ -6,19 +6,36 @@ import javafx.scene.control.*;
 import modele.ConstValues;
 
 public class MenuScenarios extends MenuBar {
-    private Menu menu;
+    private Menu menuScenario;
+    private Menu menuAlgorithme;
     private Controleur controleur;
 
     public MenuScenarios(Controleur controleur) {
         this.controleur = controleur;
-        menu = new Menu("Scénarios");
+        menuScenario = new Menu("Scénarios");
+        menuAlgorithme = new Menu("Algorithme");
 
-        this.getMenus().add(menu);
-        createMenu("scenario_0");
+        ToggleGroup groupAlgorithmes = new ToggleGroup();
+        for (String item : new String[]{"Topologique", "gf"}) {
+            RadioMenuItem menuItem = new RadioMenuItem(item);
+            menuItem.setToggleGroup(groupAlgorithmes);
+            menuItem.setUserData(item);
+            menuItem.setId("algorithme");
+            menuAlgorithme.getItems().add(menuItem);
+            menuItem.addEventHandler(ActionEvent.ACTION, controleur);
+        }
+
+        this.getMenus().addAll(menuScenario, menuAlgorithme);
+        createMenu("");
     }
 
+    /**
+     * Permet de créer/mettre à jour le menu de la menu bar.
+     *
+     * @param nomScenario nom du scénario actuel.
+     */
     public void createMenu(String nomScenario) {
-        menu.getItems().clear();
+        menuScenario.getItems().clear();
         ToggleGroup groupScenarios = new ToggleGroup();
         Boolean isFirst = true;
 
@@ -26,7 +43,7 @@ public class MenuScenarios extends MenuBar {
             RadioMenuItem menuItem = new RadioMenuItem(item);
             menuItem.setToggleGroup(groupScenarios);
             menuItem.setUserData(item);
-            menu.getItems().add(menuItem);
+            menuScenario.getItems().add(menuItem);
             menuItem.addEventHandler(ActionEvent.ACTION, controleur);
 
             if (isFirst || item.equals(nomScenario+".txt")) {
@@ -38,7 +55,7 @@ public class MenuScenarios extends MenuBar {
         RadioMenuItem menuItem = new RadioMenuItem("Créer scenario");
         menuItem.setToggleGroup(groupScenarios);
         menuItem.setUserData("creer_scenario");
-        menu.getItems().add(menuItem);
+        menuScenario.getItems().add(menuItem);
         menuItem.addEventHandler(ActionEvent.ACTION, controleur);
     }
 }

@@ -2,6 +2,8 @@ package vue;
 
 import controleur.Controleur;
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -15,6 +17,9 @@ public class TableViewTransactions extends VBox {
 
     public TableViewTransactions(Controleur controleur) {
         super();
+        this.setPadding(new Insets(15));
+        this.setSpacing(10);
+        this.setAlignment(Pos.TOP_CENTER);
 
         tableView = new TableView<>();
         this.getChildren().add(tableView);
@@ -50,18 +55,25 @@ public class TableViewTransactions extends VBox {
         update(VBoxRoot.getScenario().getTransactions());
     }
 
-    public void update(List<Transaction> transaction) {
+    /**
+     * Met à jour l'affichage de la tableView avec le scénario séléctionné.
+     *
+     * @param transactions Liste contenant toutes les transactions du scénario.
+     */
+    public void update(List<Transaction> transactions) {
         Controleur controleur = VBoxRoot.getControleur();
         Boolean isFirst = true;
         tableView.getItems().clear();
-        for (int i = 0; i < transaction.size(); i++) {
-            tableView.getItems().add(transaction.get(i));
+
+        for (int i = 0; i < transactions.size(); i++) {
+            tableView.getItems().add(transactions.get(i));
             if ((isFirst) && VBoxRoot.getHBoxContainer() != null) {
                 tableView.getSelectionModel().select(i);
 
                 Transaction selected = tableView.getSelectionModel().getSelectedItem();
                 if (selected != null) {
                     tableView.setUserData(selected);
+                    //Déclanche l'event afin de déclancher le code dans le controleur.
                     ActionEvent actionEvent = new ActionEvent(tableView, tableView);
                     controleur.handle(actionEvent);
                 }

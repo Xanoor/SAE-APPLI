@@ -7,19 +7,15 @@ import java.util.List;
 public class Scenario {
     private static String nomScenario;
     private static List<Transaction> transactions = new ArrayList<>();
-    private static List<String> vendeurs = new ArrayList<>();
-    private static List<String> acheteurs = new ArrayList<>();
+    private static List<String> path = new ArrayList<>();
+    private static int distance = 0;
 
     public void clear(){
         transactions.clear();
-        vendeurs.clear();
-        acheteurs.clear();
     }
 
     public void addTransaction(String vendeur, String acheteur) {
         transactions.add(new Transaction(vendeur, acheteur));
-        vendeurs.add(vendeur);
-        acheteurs.add(acheteur);
     }
 
     public void setNomScenario(String nomScenario) {
@@ -30,14 +26,28 @@ public class Scenario {
         return this.nomScenario;
     }
 
+    public void setPath(List<String> path) {
+        this.path = path;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
+    }
+
+    public List<String> getPath() {
+        return this.path;
+    }
+
+    public int getDistance() {
+        return this.distance;
+    }
+
 
     public List<Transaction> getTransactions() {
         return transactions;
     }
 
     public void removeTransaction(Transaction transaction) {
-        acheteurs.remove(transaction.getAcheteur());
-        vendeurs.remove(transaction.getVendeur());
         transactions.remove(transaction);
     }
 

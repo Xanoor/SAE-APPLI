@@ -2,7 +2,10 @@ package vue;
 
 import controleur.Controleur;
 import javafx.scene.layout.VBox;
+import modele.ConversionVilles;
 import modele.Scenario;
+
+import java.io.IOException;
 
 public class VBoxRoot extends VBox {
     private static Controleur controleur;
@@ -12,11 +15,16 @@ public class VBoxRoot extends VBox {
 
     public VBoxRoot() {
         super(20);
+        try {
+            ConversionVilles.convertirDistances();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         controleur = new Controleur();
         scenario = new Scenario();
         menuBarScenarios = new MenuScenarios(controleur);
         hBoxContainer = new HBoxContainer(controleur);
-
 
         this.getChildren().addAll(menuBarScenarios, hBoxContainer);
     }
@@ -34,7 +42,4 @@ public class VBoxRoot extends VBox {
     public static Scenario getScenario() {
         return scenario;
     }
-
-
-
 }

@@ -19,30 +19,44 @@ public class Controleur implements EventHandler {
     public void handle(Event event) {
         Scenario scenario = VBoxRoot.getScenario();
         HBoxContainer hBoxContainer = VBoxRoot.getHBoxContainer();
+        VBoxAlgorithm vBoxAlgorithm = hBoxContainer.getVBoxAlgorithm();
 
         //la source de event est le bouton "Enregistrer" du formulaire de réservation
         if (event.getSource() instanceof RadioMenuItem) {
-            String RadioMenuItemName = ((RadioMenuItem) event.getSource()).getUserData().toString();
-            if (RadioMenuItemName.equals("creer_scenario")) {
-                MenuScenarios menu = VBoxRoot.getMenuBarScenarios();
-                String fileName = "scenario_"+getScenarios().size();
-                try {
-                    EcritureScenario.creerScenario(fileName+".txt");
-                    ConstValues.updateScenarios();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                menu.createMenu(fileName);
-            } else {
-                File fichier = new File("data/scenarios/"+RadioMenuItemName);
-                try {
-                    scenario = LectureScenarios.lectureScenarios(fichier);
-                } catch (IOException e) {
-                    System.out.println(e);
-                }
-            }
+            String buttonId = ((RadioMenuItem) event.getSource()).getId();
+            if (buttonId != null && buttonId.equals("algorithme")) {
+                if (((RadioMenuItem) event.getSource()).getUserData() == "Topologique") {
+                    try {
+                        new ScenarioVille();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
 
-            hBoxContainer.getTableViewTransactions().update(scenario.getTransactions());
+                    vBoxAlgorithm.update(scenario.getPath(), scenario.getDistance());
+                }
+            } else {
+                String RadioMenuItemName = ((RadioMenuItem) event.getSource()).getUserData().toString();
+                if (RadioMenuItemName.equals("creer_scenario")) {
+                    MenuScenarios menu = VBoxRoot.getMenuBarScenarios();
+                    String fileName = "scenario_"+getScenarios().size();
+                    try {
+                        EcritureScenario.creerScenario(fileName+".txt");
+                        ConstValues.updateScenarios();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    menu.createMenu(fileName);
+                } else {
+                    File fichier = new File("data/scenarios/"+RadioMenuItemName);
+                    try {
+                        scenario = LectureScenarios.lectureScenarios(fichier);
+                    } catch (IOException e) {
+                        System.out.println(e);
+                    }
+                }
+
+                hBoxContainer.getTableViewTransactions().update(scenario.getTransactions());
+            }
         }
         System.out.println(event.getSource());
         if (event.getSource() instanceof TableView<?>) {
@@ -55,11 +69,6 @@ public class Controleur implements EventHandler {
             TableViewTransactions tableViewTransactions = hBoxContainer.getTableViewTransactions();
             if (((Button) event.getSource()).getUserData() == "enregistrer") {
                 System.out.println(scenario.toString());
-                try {
-                    new ScenarioVillesTopologique();
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
             } else if (((Button) event.getSource()).getUserData() == "modifier") {
                 scenarioEditor.getCurrentTransaction().setAcheteur(scenarioEditor.getNomAcheteur());
                 scenarioEditor.getCurrentTransaction().setVendeur(scenarioEditor.getNomVendeur());

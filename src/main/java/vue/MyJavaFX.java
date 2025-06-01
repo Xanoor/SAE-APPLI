@@ -19,7 +19,7 @@ public class MyJavaFX extends Application {
     public void start(Stage stage) {
         VBox root = new VBoxRoot();
 
-        Scene scene = new Scene(root, 800, 480);
+        Scene scene = new Scene(root, 1180, 580);
         File[] fichiersCss = new File("css").listFiles();
         for (File fichier : fichiersCss) {
             scene.getStylesheets().add(fichier.toURI().toString());

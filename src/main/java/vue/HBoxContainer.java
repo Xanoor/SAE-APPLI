@@ -26,7 +26,7 @@ public class HBoxContainer extends HBox {
         try {
             scenario = LectureScenarios.lectureScenarios(fichier);
         } catch (IOException e) {
-            System.out.println("Erreur lors de la lecture scenario");
+            System.out.println("Erreur lors de la lecture scenario 0");
         }
 
         scenarioEditor = new ScenarioEditor(controleur);

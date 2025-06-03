@@ -1,15 +1,10 @@
 package vue;
 
+import controleur.Controleur;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventType;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.File;
 
 
@@ -17,13 +12,17 @@ public class MyJavaFX extends Application {
 
     @Override
     public void start(Stage stage) {
-        VBox root = new VBoxRoot();
+        VBoxRoot root = new VBoxRoot();
+        Controleur controleur = VBoxRoot.getControleur();
 
         Scene scene = new Scene(root, 1180, 580);
         File[] fichiersCss = new File("css").listFiles();
         for (File fichier : fichiersCss) {
+            System.out.println(fichier);
             scene.getStylesheets().add(fichier.toURI().toString());
         }
+
+        stage.setOnCloseRequest(controleur::closeWindow);
 
         stage.setScene(scene);
         stage.setTitle("SAE APPLI - Théo Peyronnet / Mohamed Boulakhras");

@@ -142,7 +142,7 @@ public class GrapheOriente {
      * Permet de récupérer les degrés entrants.
      * @return Map sommet - degrés entrants
      */
-    private Map<String, Integer> getDegreEntrant() {
+    public Map<String, Integer> getDegreEntrant() {
         Map<String, Integer> degreEntrant = new TreeMap<String, Integer>();
         for (String ville : voisinsSortant.keySet()) {
             degreEntrant.put(ville, 0);
@@ -157,5 +157,9 @@ public class GrapheOriente {
         }
 
         return degreEntrant;
+    }
+
+    public TreeMap<String, Set<String>> getVoisinsSortants() {
+        return voisinsSortant;
     }
 }

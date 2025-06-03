@@ -14,6 +14,7 @@ import modele.Transaction;
 public class ScenarioEditor extends GridPane {
     private ComboBox<String> nomVendeur;
     private ComboBox<String> nomAcheteur;
+    private ComboBox<Integer> kSolutions;
     private Label labelTransaction;
     private Transaction currentTransaction;
 
@@ -65,6 +66,14 @@ public class ScenarioEditor extends GridPane {
         this.add(addButton, 0, 3);
         this.add(updateButton, 1, 3);
         this.add(saveButton, 2, 3);
+
+        this.add(new Label("Réglage k meilleures solutions: "), 0, 6, 2, 1);
+        kSolutions = new ComboBox<>();
+        for (int i = 1; i <= 100; i++) {
+            kSolutions.getItems().add(i);
+        }
+        kSolutions.setValue(1);
+        this.add(kSolutions, 2, 6);
     }
 
     /**
@@ -93,5 +102,9 @@ public class ScenarioEditor extends GridPane {
 
     public String getNomAcheteur() {
         return nomAcheteur.getValue();
+    }
+
+    public int getKSolutions() {
+        return kSolutions.getValue();
     }
 }

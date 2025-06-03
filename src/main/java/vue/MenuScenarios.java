@@ -14,10 +14,10 @@ public class MenuScenarios extends MenuBar {
         this.controleur = controleur;
         this.setPrefWidth(330);
         menuScenario = new Menu("Scénarios");
-        menuAlgorithme = new Menu("Algorithme");
+        menuAlgorithme = new Menu("Algorithmes");
 
         ToggleGroup groupAlgorithmes = new ToggleGroup();
-        for (String item : new String[]{"Topologique", "Glouton"}) {
+        for (String item : new String[]{"Topologique", "Glouton", "Brute force"}) {
             RadioMenuItem menuItem = new RadioMenuItem(item);
             menuItem.setToggleGroup(groupAlgorithmes);
             menuItem.setUserData(item);

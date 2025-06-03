@@ -17,7 +17,6 @@ public class VBoxRoot extends VBox {
         super(20);
         DonneesScenarios.convertirDistances();
 
-
         controleur = new Controleur();
         scenario = new Scenario();
         menuBarScenarios = new MenuScenarios(controleur);

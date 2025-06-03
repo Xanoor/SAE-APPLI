@@ -22,8 +22,8 @@ public class ScenarioGlouton {
             villesSet.add(vendeur);
             villesSet.add(Acheteur);
             vendeurs.add(vendeur);
-
         }
+
         String actuelle = "Velizy";
         List<String> chemin = new ArrayList<>();
         chemin.add("Velizy"); // Ville de départ

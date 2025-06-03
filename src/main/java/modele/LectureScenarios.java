@@ -8,6 +8,12 @@ import java.util.Scanner;
 
 public class LectureScenarios {
 
+    /**
+     * Permet de lire un scénario
+     * @param fichier
+     * @return
+     * @throws IOException
+     */
     public static Scenario lectureScenarios (File fichier) throws IOException {
         Scenario scenario = VBoxRoot.getScenario();
         Scanner scanner = new Scanner(fichier);

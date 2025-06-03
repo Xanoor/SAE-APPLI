@@ -110,7 +110,6 @@ public class GrapheOriente {
      * Permet d’ordonner les sommets du graphe en sélectionnant à chaque étape un sommet de degré entrant nul.
      * @return Renvoie l’ordre topologique sous forme de liste.
      */
-
     public List<String> triTopologiqueSimple() {
         List<String> ordre = new ArrayList<String>();
         Map<String, Integer> degreEntrant = getDegreEntrant();
@@ -139,6 +138,10 @@ public class GrapheOriente {
         return ordre;
     }
 
+    /**
+     * Permet de récupérer les degrés entrants.
+     * @return Map sommet - degrés entrants
+     */
     private Map<String, Integer> getDegreEntrant() {
         Map<String, Integer> degreEntrant = new TreeMap<String, Integer>();
         for (String ville : voisinsSortant.keySet()) {

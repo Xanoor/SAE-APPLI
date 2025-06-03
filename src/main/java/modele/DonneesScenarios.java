@@ -1,6 +1,7 @@
 package modele;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
@@ -16,27 +17,37 @@ public class DonneesScenarios {
      * @return Liste contenant le noms des scénarios.
      */
     private static List<String> importScenarios() {
-        List<String> scenarios = new ArrayList<>();
+        try {
+            List<String> scenarios = new ArrayList<>();
 
-        for (File file : new File("data/scenarios").listFiles()) {
-            scenarios.add(file.getName());
+            for (File file : new File("data/scenarios").listFiles()) {
+                scenarios.add(file.getName());
+            }
+            return scenarios;
+        } catch (Exception e) {
+            System.out.println("Erreur lors de l'importation de scenarios (noms)");
+            throw new RuntimeException(e);
         }
-        return scenarios;
     }
 
     /**
      * Permet de convertir les distances dans le fichier distances.txt en matrice.
      * Ajoute également toutes les villes du fichier dans la liste "villes".
      */
-    public static void convertirDistances() throws IOException {
-        Scanner scanner = new Scanner(new File("data/distances.txt"));
-        while (scanner.hasNextLine()) {
-            villes.add(scanner.next());
-            List<Integer> distances = new ArrayList<>();
-            while (scanner.hasNextInt()) {
-                distances.add(scanner.nextInt());
+    public static void convertirDistances() {
+        try {
+            Scanner scanner = new Scanner(new File("data/distances.txt"));
+            while (scanner.hasNextLine()) {
+                villes.add(scanner.next());
+                List<Integer> distances = new ArrayList<>();
+                while (scanner.hasNextInt()) {
+                    distances.add(scanner.nextInt());
+                }
+                tableDistances.add(distances);
             }
-            tableDistances.add(distances);
+        } catch (Exception e) {
+            System.out.println("Erreur lors de l'importation des distances");
+            throw new RuntimeException(e);
         }
     }
 
@@ -56,28 +67,33 @@ public class DonneesScenarios {
     /**
      * Créer une hashMap avec le nom de chaque pokémon correspondant a une ville.
      * @return Retourne une Map de conversion (pokémon = ville)
-     * @throws IOException Lève une erreur si un problème survient lors de la lecture du fichier.
      */
-    public static Map<String, String> convertirVilles () throws IOException {
-        tableConversion.clear();
-        Map<String, String> conversionVilles = new HashMap<>();
-        Scanner scanner = new Scanner(new File("data/membres_APPLI.txt"));
-        Scanner scannerLine;
+    public static Map<String, String> convertirVilles () {
+        try {
+            tableConversion.clear();
+            Map<String, String> conversionVilles = new HashMap<>();
+            Scanner scanner = new Scanner(new File("data/membres_APPLI.txt"));
+            Scanner scannerLine;
 
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            scannerLine = new Scanner(line).useDelimiter(" ");
-            String pokemon = scannerLine.next();
-            String ville = scannerLine.next();
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                scannerLine = new Scanner(line).useDelimiter(" ");
+                String pokemon = scannerLine.next();
+                String ville = scannerLine.next();
 
-            conversionVilles.put(pokemon, ville);
-            scannerLine.close();
+                conversionVilles.put(pokemon, ville);
+                scannerLine.close();
+            }
+
+            scanner.close();
+
+            tableConversion = conversionVilles;
+            return conversionVilles;
+        } catch (Exception e) {
+            System.out.println("Erreur lors de l'importation des villes (conversion nom pokémon -> nom ville)");
+            throw new RuntimeException(e);
         }
 
-        scanner.close();
-
-        tableConversion = conversionVilles;
-        return conversionVilles;
     }
 
     /**

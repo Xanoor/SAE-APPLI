@@ -15,11 +15,8 @@ public class VBoxRoot extends VBox {
 
     public VBoxRoot() {
         super(20);
-        try {
-            DonneesScenarios.convertirDistances();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        DonneesScenarios.convertirDistances();
+
 
         controleur = new Controleur();
         scenario = new Scenario();

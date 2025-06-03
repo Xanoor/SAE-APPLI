@@ -11,8 +11,6 @@ import javafx.scene.layout.GridPane;
 import modele.DonneesScenarios;
 import modele.Transaction;
 
-import java.io.IOException;
-
 public class ScenarioEditor extends GridPane {
     private ComboBox<String> nomVendeur;
     private ComboBox<String> nomAcheteur;
@@ -35,13 +33,9 @@ public class ScenarioEditor extends GridPane {
         nomVendeur = new ComboBox<>();
         nomAcheteur = new ComboBox<>();
 
-        try {
-            for (String item : DonneesScenarios.convertirVilles().keySet()) {
-                nomVendeur.getItems().add(item);
-                nomAcheteur.getItems().add(item);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        for (String item : DonneesScenarios.convertirVilles().keySet()) {
+            nomVendeur.getItems().add(item);
+            nomAcheteur.getItems().add(item);
         }
 
         this.add(nomVendeur, 0, 2);

@@ -7,7 +7,7 @@ public class DonneesScenarios {
     public static Map<String, String> tableConversion = new HashMap<>();
     public static List<List<Integer>> tableDistances = new ArrayList<>();
     private static List<String> villes = new ArrayList<>();
-    private static List<String> CONST_SCENARIOS = importScenarios();
+    private static List<String> listeScenarios = importScenarios();
 
     /**
      * Méthode permettant de récupérer la liste des scénarios.
@@ -109,10 +109,10 @@ public class DonneesScenarios {
      * scénarios par exemple).
      */
     public static void updateScenarios() {
-        CONST_SCENARIOS = importScenarios();
+        listeScenarios = importScenarios();
     }
 
     public static List<String> getScenarios() {
-        return CONST_SCENARIOS;
+        return listeScenarios;
     }
 }

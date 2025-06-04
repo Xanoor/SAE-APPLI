@@ -8,6 +8,7 @@ public class Scenario {
     private static String nomScenario;
     private static List<Transaction> transactions = new ArrayList<>();
     private static List<String> path = new ArrayList<>();
+    private static List<ScenarioBruteForce.Solution> kpath = new ArrayList<>();
     private static int distance = 0;
 
     public void clear(){
@@ -28,6 +29,14 @@ public class Scenario {
 
     public void setPath(List<String> path) {
         this.path = path;
+    }
+
+    public void setKpath(List<ScenarioBruteForce.Solution> kpath) {
+        this.kpath = kpath;
+    }
+
+    public List<ScenarioBruteForce.Solution> getkPath() {
+        return this.kpath;
     }
 
     public void setDistance(int distance) {

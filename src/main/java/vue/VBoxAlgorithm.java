@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import modele.ScenarioBruteForce;
 import modele.ScenarioVille;
 
 import java.util.List;
@@ -39,6 +40,22 @@ public class VBoxAlgorithm extends VBox {
         labelChemin.setText("Chemin trouvé: \n" + chemin.toString().replace("[", "").replace("]", ""));
         labelDistance.setText("Distance : " + distance + "km");
 
+        labelChemin.applyCss();
+        labelChemin.layout();
+    }
+
+    /**
+     * Met à jour le texte des labels afin d'afficher les chemins trouvés et les distances totales.
+     *
+     * @param chemins Liste contenant toutes les listes de villes parcourues (dans l'ordre).
+     */
+    public void update(List<ScenarioBruteForce.Solution> chemins) {
+        labelChemin.setText("Chemins trouvés: \n");
+
+        for (ScenarioBruteForce.Solution solution : chemins) {
+            labelChemin.setText(labelChemin.getText() + "\n[" + solution.getDistance() + "km] " + solution.getChemin()+"\n");
+        }
+        labelDistance.setText("");
         labelChemin.applyCss();
         labelChemin.layout();
     }

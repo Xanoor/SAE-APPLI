@@ -34,20 +34,23 @@ public class Controleur implements EventHandler {
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
+                    vBoxAlgorithm.update(scenario.getPath(), scenario.getDistance());
                 } else if (algorithme == "Glouton") {
                     try {
                         new ScenarioGlouton();
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
+                    vBoxAlgorithm.update(scenario.getPath(), scenario.getDistance());
                 } else if (algorithme == "Brute force") {
                     try {
-                        new ScenarioBruteForce(hBoxContainer.getScenarioEditor().getKSolutions());
+                        ScenarioBruteForce bruteForce = new ScenarioBruteForce(hBoxContainer.getScenarioEditor().getKSolutions());
+                        scenario.setKpath(bruteForce.getSolutions());
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
+                    vBoxAlgorithm.update(scenario.getkPath());
                 }
-                vBoxAlgorithm.update(scenario.getPath(), scenario.getDistance());
 
             } else { // Partie menu scénario
                 String RadioMenuItemName = ((RadioMenuItem) event.getSource()).getUserData().toString();
